@@ -1,6 +1,3 @@
-// ─────────────────────────────────────────
-// 초기 데이터 (JavaScript Array를 DB처럼 사용)
-// ─────────────────────────────────────────
 let products = [
     {
         id: 1,
@@ -116,11 +113,8 @@ function render() {
     });
 }
 
-// ─────────────────────────────────────────
-// validate() — 입력값 검증 (3가지 이상)
-// ─────────────────────────────────────────
+
 function validate() {
-    // 1. 상품명 필수 + 길이 2자 이상
     if (inputName.value.trim() === "") {
         alert("상품명을 입력하세요.");
         inputName.focus();
@@ -132,14 +126,12 @@ function validate() {
         return false;
     }
 
-    // 2. 상품번호 필수
     if (inputNum.value.trim() === "") {
         alert("상품번호를 입력하세요.");
         inputNum.focus();
         return false;
     }
 
-    // 3. 가격 범위 확인 (0원 이상, 정수)
     const priceVal = Number(inputPrice.value);
     if (inputPrice.value.trim() === "" || isNaN(priceVal)) {
         alert("가격을 숫자로 입력하세요.");
@@ -209,17 +201,14 @@ function addProduct() {
     render();   // 화면 갱신
 }
 
-// ─────────────────────────────────────────
-// UPDATE (수정 시작) — 폼에 기존 데이터 표시
-// ─────────────────────────────────────────
 function startEdit(id) {
-    // find()로 해당 id의 객체를 배열에서 검색
+   
     const target = products.find(function (p) {
         return p.id === id;
     });
     if (!target) return;
 
-    // 폼에 기존 데이터 채우기
+
     inputName.value     = target.productName;
     inputNum.value      = target.productNum;
     inputPrice.value    = target.price;
@@ -279,7 +268,6 @@ function deleteProduct(id) {
         return p.id !== id;
     });
 
-    // 수정 중인 항목이 삭제된 경우 폼 초기화
     if (editingId === id) {
         editingId = -1;
         formTitle.innerText     = "상품 추가";
@@ -291,10 +279,6 @@ function deleteProduct(id) {
     render();   // 화면 갱신
 }
 
-// ─────────────────────────────────────────
-// 이벤트 등록
-// ─────────────────────────────────────────
-
 // [Add / 저장] 버튼
 submitBtn.addEventListener("click", function () {
     if (editingId === -1) {
@@ -304,7 +288,6 @@ submitBtn.addEventListener("click", function () {
     }
 });
 
-// [취소] 버튼 — 수정 취소, 추가 모드로 복귀
 cancelBtn.addEventListener("click", function () {
     editingId = -1;
     formTitle.innerText     = "상품 추가";
@@ -313,7 +296,4 @@ cancelBtn.addEventListener("click", function () {
     clearForm();
 });
 
-// ─────────────────────────────────────────
-// 페이지 최초 실행 시 초기 데이터 렌더링
-// ─────────────────────────────────────────
 render();
