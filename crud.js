@@ -263,3 +263,4 @@ cancelBtn.addEventListener("click", function () {
     clearForm();
 });
 
+render();
