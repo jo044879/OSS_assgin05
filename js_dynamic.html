@@ -4,94 +4,20 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>동적 리스트</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            max-width: 500px;
-            margin: 40px auto;
-            padding: 0 20px;
-        }
-
-        h2 {
-            color: #333;
-        }
-
-        .input-area {
-            display: flex;
-            gap: 8px;
-            margin-bottom: 20px;
-        }
-
-        #userinput {
-            flex: 1;
-            padding: 8px 12px;
-            font-size: 16px;
-            border: 1px solid #ccc;
-            border-radius: 4px;
-        }
-
-        #plus {
-            padding: 8px 16px;
-            font-size: 16px;
-            background-color: #4CAF50;
-            color: white;
-            border: none;
-            border-radius: 4px;
-            cursor: pointer;
-        }
-
-        #plus:hover {
-            background-color: #45a049;
-        }
-
-        #addul {
-            list-style: none;
-            padding: 0;
-            margin: 0;
-        }
-
-        #addul li {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 10px 14px;
-            margin-bottom: 6px;
-            background-color: #f9f9f9;
-            border: 1px solid #ddd;
-            border-radius: 4px;
-            font-size: 16px;
-        }
-
-        .delbtn {
-            padding: 4px 12px;
-            font-size: 14px;
-            background-color: #e74c3c;
-            color: white;
-            border: none;
-            border-radius: 4px;
-            cursor: pointer;
-        }
-
-        .delbtn:hover {
-            background-color: #c0392b;
-        }
-    </style>
+   
     <script>
         window.onload = function () {
             const userinput = document.getElementById("userinput");
             const plus = document.getElementById("plus");
             const addul = document.getElementById("addul");
 
-            // 항목 삭제 함수
             function delform(e) {
                 e.target.parentElement.remove();
             }
 
-            // 항목 추가 함수
             function addItem() {
                 const text = userinput.value.trim();
 
-                // 빈값 방지 Validation
                 if (text === "") {
                     alert("내용을 입력하세요.");
                     userinput.focus();
@@ -113,20 +39,12 @@
                 li.appendChild(delbtn);
                 addul.appendChild(li);
 
-                // 입력 초기화
                 userinput.value = "";
                 userinput.focus();
             }
 
-            // [추가] 버튼 클릭 이벤트
             plus.addEventListener("click", addItem);
 
-            // Enter 키로도 추가 가능
-            userinput.addEventListener("keydown", function (e) {
-                if (e.key === "Enter") {
-                    addItem();
-                }
-            });
         };
     </script>
 </head>

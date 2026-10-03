@@ -34,9 +34,7 @@ let nextId = 4;
 // 수정 중인 항목의 ID (-1이면 추가 모드)
 let editingId = -1;
 
-// ─────────────────────────────────────────
-// DOM 요소 참조
-// ─────────────────────────────────────────
+
 const inputName     = document.getElementById("inputName");
 const inputNum      = document.getElementById("inputNum");
 const inputPrice    = document.getElementById("inputPrice");
@@ -48,9 +46,6 @@ const cancelBtn     = document.getElementById("cancelBtn");
 const formTitle     = document.getElementById("formTitle");
 const tableBody     = document.getElementById("productTableBody");
 
-// ─────────────────────────────────────────
-// render() — Array 데이터를 Table로 출력
-// ─────────────────────────────────────────
 function render() {
     // 기존 테이블 내용 초기화
     tableBody.innerHTML = "";
@@ -129,36 +124,33 @@ function validate() {
     if (inputNum.value.trim() === "") {
         alert("상품번호를 입력하세요.");
         inputNum.focus();
-        return false;
+        return;
     }
 
     const priceVal = Number(inputPrice.value);
     if (inputPrice.value.trim() === "" || isNaN(priceVal)) {
         alert("가격을 숫자로 입력하세요.");
         inputPrice.focus();
-        return false;
+        return;
     }
     if (priceVal < 0) {
         alert("가격은 0원 이상이어야 합니다.");
         inputPrice.focus();
-        return false;
+        return;
     }
 
-    // 4. 매장명 필수
     if (inputMarket.value.trim() === "") {
         alert("매장명을 입력하세요.");
         inputMarket.focus();
-        return false;
+        return;
     }
 
-    // 5. 배송지 필수
     if (inputAddress.value.trim() === "") {
         alert("배송지를 입력하세요.");
         inputAddress.focus();
         return false;
     }
 
-    // 6. 카테고리 선택 여부 확인
     if (inputCategory.value === "") {
         alert("카테고리를 선택하세요.");
         inputCategory.focus();
@@ -168,25 +160,10 @@ function validate() {
     return true;
 }
 
-// ─────────────────────────────────────────
-// clearForm() — 입력 폼 초기화
-// ─────────────────────────────────────────
-function clearForm() {
-    inputName.value     = "";
-    inputNum.value      = "";
-    inputPrice.value    = "";
-    inputMarket.value   = "";
-    inputAddress.value  = "";
-    inputCategory.value = "";
-}
 
-// ─────────────────────────────────────────
-// CREATE — 상품 추가
-// ─────────────────────────────────────────
 function addProduct() {
     if (!validate()) return;
 
-    // push()로 배열에 새 객체 추가
     products.push({
         id: nextId++,
         productName: inputName.value.trim(),
@@ -198,7 +175,7 @@ function addProduct() {
     });
 
     clearForm();
-    render();   // 화면 갱신
+    render();
 }
 
 function startEdit(id) {
@@ -216,24 +193,18 @@ function startEdit(id) {
     inputAddress.value  = target.address;
     inputCategory.value = target.category;
 
-    // 수정 모드 UI 전환
     editingId = id;
     formTitle.innerText   = "상품 수정";
     submitBtn.innerText   = "저장";
     cancelBtn.style.display = "inline-block";
 
-    // 폼 상단으로 스크롤
     window.scrollTo({ top: 0, behavior: "smooth" });
     inputName.focus();
 }
 
-// ─────────────────────────────────────────
-// UPDATE (저장) — 배열 데이터 변경
-// ─────────────────────────────────────────
 function updateProduct() {
     if (!validate()) return;
 
-    // find()로 수정 대상 객체 검색 후 값 변경
     const target = products.find(function (p) {
         return p.id === editingId;
     });
@@ -246,7 +217,6 @@ function updateProduct() {
     target.address     = inputAddress.value.trim();
     target.category    = inputCategory.value;
 
-    // 추가 모드로 복귀
     editingId = -1;
     formTitle.innerText     = "상품 추가";
     submitBtn.innerText     = "Add";
@@ -256,9 +226,6 @@ function updateProduct() {
     render();   // 화면 갱신
 }
 
-// ─────────────────────────────────────────
-// DELETE — 배열에서 데이터 삭제
-// ─────────────────────────────────────────
 function deleteProduct(id) {
     // confirm()으로 삭제 여부 확인
     if (!confirm("삭제하시겠습니까?")) return;
@@ -296,4 +263,3 @@ cancelBtn.addEventListener("click", function () {
     clearForm();
 });
 
-render();
