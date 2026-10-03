@@ -109,6 +109,17 @@ function render() {
 }
 
 
+function clearForm() {
+    
+    inputName.value     = "";
+    inputNum.value      = "";
+    inputPrice.value    = "";
+    inputMarket.value   = "";
+    inputAddress.value  = "";
+    inputCategory.value = "";
+
+};
+
 function validate() {
     if (inputName.value.trim() === "") {
         alert("상품명을 입력하세요.");
@@ -124,25 +135,25 @@ function validate() {
     if (inputNum.value.trim() === "") {
         alert("상품번호를 입력하세요.");
         inputNum.focus();
-        return;
+        return false;
     }
 
     const priceVal = Number(inputPrice.value);
     if (inputPrice.value.trim() === "" || isNaN(priceVal)) {
         alert("가격을 숫자로 입력하세요.");
         inputPrice.focus();
-        return;
+        return false;
     }
     if (priceVal < 0) {
         alert("가격은 0원 이상이어야 합니다.");
         inputPrice.focus();
-        return;
+        return false;
     }
 
     if (inputMarket.value.trim() === "") {
         alert("매장명을 입력하세요.");
         inputMarket.focus();
-        return;
+        return false;
     }
 
     if (inputAddress.value.trim() === "") {
