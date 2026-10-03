@@ -246,6 +246,12 @@ function deleteProduct(id) {
         return p.id !== id;
     });
 
+    // 삭제 후 ID를 1부터 순서대로 재정렬
+    products.forEach(function (p, index) {
+        p.id = index + 1;
+    });
+    nextId = products.length + 1;
+
     if (editingId === id) {
         editingId = -1;
         formTitle.innerText     = "상품 추가";
